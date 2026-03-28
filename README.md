@@ -20,7 +20,7 @@ All three contributions below address this root cause, each taking a different a
 |-------------|---------|---------------|-----------|
 | Rudra | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE | 56.22% |
 | Vaibhav | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe | 74.71% |
-| Aaditya | CIFAR-10 | RepViT-M1.1 (stride-1 stem + selective SE) | — |
+| Aaditya | CIFAR-10 | RepViT-M1.1 (stride-1 stem + selective SE) | 91.02 |
 
 ---
 
