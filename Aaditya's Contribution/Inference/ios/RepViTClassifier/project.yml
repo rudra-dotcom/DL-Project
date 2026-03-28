@@ -1,0 +1,36 @@
+name: RepViTClassifier
+options:
+  bundleIdPrefix: com.madhav.repvit
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: 6.0
+    PRODUCT_NAME: RepViTClassifier
+targets:
+  RepViTClassifier:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: Resources/Models/RepViT_M1_1.mlmodel
+      - path: Resources/Data/imagenet_classes.txt
+        buildPhase: resources
+      - path: Resources/Samples/test_image_corgi.jpg
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.madhav.repvit.classifier
+        INFOPLIST_KEY_CFBundleDisplayName: RepViT
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: Select an image to run RepViT classification on-device.
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        GENERATE_INFOPLIST_FILE: YES
+        DEVELOPMENT_TEAM: ""
+    info:
+      path: Info.plist
+      properties:
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false

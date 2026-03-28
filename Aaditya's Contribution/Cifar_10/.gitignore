@@ -1,0 +1,26 @@
+wandb
+coreml
+pretrain
+**/__pycache__
+pretrain
+ignore
+*.zip
+checkpoints
+trt
+# Data
+data/
+*.tar.gz
+*.gz
+*.zip
+
+# Model Weights
+*.pth
+*.pt
+*.bin
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/

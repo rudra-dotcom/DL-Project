@@ -1,0 +1,4 @@
+model,label,best_test_acc,final_test_acc,latency_ms,fps,params_m,epochs
+repvit_cifar10,RepViT-CIFAR10,91.02,90.75,5.98,5351.9,4.52,100
+repvit_m1_1,RepViT-m1.1,87.39,87.39,5.95,5380.5,7.78,100
+mobilenetv3_large_100,MobileNetV3-L,75.77,75.77,2.98,10755.7,4.21,100

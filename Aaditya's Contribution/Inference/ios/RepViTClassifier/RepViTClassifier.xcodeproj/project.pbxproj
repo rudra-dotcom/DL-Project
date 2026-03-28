@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DD4E1BD93C753D9E29B710E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F90B86B0BC3B83A25BE4675 /* ContentView.swift */; };
+		1F3028FE4A65DEBECC3625AC /* imagenet_classes.txt in Resources */ = {isa = PBXBuildFile; fileRef = A57AA640A78DDA91775373A8 /* imagenet_classes.txt */; };
+		30AC97E2C361068ADE046E4D /* ImagePreprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4BF395BC021C3DF4072CF /* ImagePreprocessing.swift */; };
+		5093E7B449FA4CC5D2911930 /* test_image_corgi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1628E57716D3753F33C7DE70 /* test_image_corgi.jpg */; };
+		52F72A9E6BDFC32166AC4919 /* RepViTPredictionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4C3A2AF92196CA4AA9DECF /* RepViTPredictionEngine.swift */; };
+		5714B642E419B58672E72AD6 /* RepViTModelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13409630098487381A5AF27A /* RepViTModelCatalog.swift */; };
+		8CEA7DE127CF75B1F52FDB6D /* PhotoLibraryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08289C0CE2B95498D3BA323 /* PhotoLibraryPicker.swift */; };
+		AB6EEFE9A8A50B7DB7DE44D1 /* RepViTClassifierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D543B1C3AD1C684DD5CD9B /* RepViTClassifierApp.swift */; };
+		B9A72B7B16923E55407712C2 /* RepViTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB965061C7EF91488665274 /* RepViTViewModel.swift */; };
+		D84A234BF685B68DDB2CB67E /* RepViT_M1_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 705E9F3919C36DC67625551A /* RepViT_M1_1.mlmodel */; };
+		DC1D1D99A041A817A2CE3A7A /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F439D4EFFE4CB02E6A15B55 /* AppAppearance.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0E4C3A2AF92196CA4AA9DECF /* RepViTPredictionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepViTPredictionEngine.swift; sourceTree = "<group>"; };
+		13409630098487381A5AF27A /* RepViTModelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepViTModelCatalog.swift; sourceTree = "<group>"; };
+		1628E57716D3753F33C7DE70 /* test_image_corgi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image_corgi.jpg; sourceTree = "<group>"; };
+		41DDA366A67080FDFF8904E7 /* RepViTClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepViTClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F90B86B0BC3B83A25BE4675 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6FB965061C7EF91488665274 /* RepViTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepViTViewModel.swift; sourceTree = "<group>"; };
+		705E9F3919C36DC67625551A /* RepViT_M1_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RepViT_M1_1.mlmodel; sourceTree = "<group>"; };
+		7F439D4EFFE4CB02E6A15B55 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		A57AA640A78DDA91775373A8 /* imagenet_classes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = imagenet_classes.txt; sourceTree = "<group>"; };
+		AAC4BF395BC021C3DF4072CF /* ImagePreprocessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreprocessing.swift; sourceTree = "<group>"; };
+		D08289C0CE2B95498D3BA323 /* PhotoLibraryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryPicker.swift; sourceTree = "<group>"; };
+		D3D543B1C3AD1C684DD5CD9B /* RepViTClassifierApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepViTClassifierApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		18CDEFDCA4DF0B95E6FEEB10 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41DDA366A67080FDFF8904E7 /* RepViTClassifier.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26A16CBF20B87DF22E03BD2C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5C2D8429C4D0C426A089DC36 /* Data */,
+				4B81FFDDBDC822047FA19CC2 /* Models */,
+				3DBA5B5DC93B4D8D8B211824 /* Samples */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3DBA5B5DC93B4D8D8B211824 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				1628E57716D3753F33C7DE70 /* test_image_corgi.jpg */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		4512F04A516BE99480AC2B80 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7F439D4EFFE4CB02E6A15B55 /* AppAppearance.swift */,
+				4F90B86B0BC3B83A25BE4675 /* ContentView.swift */,
+				AAC4BF395BC021C3DF4072CF /* ImagePreprocessing.swift */,
+				D08289C0CE2B95498D3BA323 /* PhotoLibraryPicker.swift */,
+				D3D543B1C3AD1C684DD5CD9B /* RepViTClassifierApp.swift */,
+				13409630098487381A5AF27A /* RepViTModelCatalog.swift */,
+				0E4C3A2AF92196CA4AA9DECF /* RepViTPredictionEngine.swift */,
+				6FB965061C7EF91488665274 /* RepViTViewModel.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		465AD7BAB3A86D436989420E = {
+			isa = PBXGroup;
+			children = (
+				26A16CBF20B87DF22E03BD2C /* Resources */,
+				4512F04A516BE99480AC2B80 /* Sources */,
+				18CDEFDCA4DF0B95E6FEEB10 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4B81FFDDBDC822047FA19CC2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				705E9F3919C36DC67625551A /* RepViT_M1_1.mlmodel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C2D8429C4D0C426A089DC36 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A57AA640A78DDA91775373A8 /* imagenet_classes.txt */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0DFDCF7F0A8431EEC9E24142 /* RepViTClassifier */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48E2E365C320E9EBFB63A7FF /* Build configuration list for PBXNativeTarget "RepViTClassifier" */;
+			buildPhases = (
+				9235A3F59DEBCCEB873F1443 /* Sources */,
+				D3448D26C91E090860B56A26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RepViTClassifier;
+			packageProductDependencies = (
+			);
+			productName = RepViTClassifier;
+			productReference = 41DDA366A67080FDFF8904E7 /* RepViTClassifier.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		056A48139E8FEE7F5FC59BE8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2630;
+			};
+			buildConfigurationList = 1BCF4937F15870801EBF558F /* Build configuration list for PBXProject "RepViTClassifier" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 465AD7BAB3A86D436989420E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 18CDEFDCA4DF0B95E6FEEB10 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0DFDCF7F0A8431EEC9E24142 /* RepViTClassifier */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3448D26C91E090860B56A26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3028FE4A65DEBECC3625AC /* imagenet_classes.txt in Resources */,
+				5093E7B449FA4CC5D2911930 /* test_image_corgi.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9235A3F59DEBCCEB873F1443 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1D1D99A041A817A2CE3A7A /* AppAppearance.swift in Sources */,
+				0DD4E1BD93C753D9E29B710E /* ContentView.swift in Sources */,
+				30AC97E2C361068ADE046E4D /* ImagePreprocessing.swift in Sources */,
+				8CEA7DE127CF75B1F52FDB6D /* PhotoLibraryPicker.swift in Sources */,
+				AB6EEFE9A8A50B7DB7DE44D1 /* RepViTClassifierApp.swift in Sources */,
+				5714B642E419B58672E72AD6 /* RepViTModelCatalog.swift in Sources */,
+				52F72A9E6BDFC32166AC4919 /* RepViTPredictionEngine.swift in Sources */,
+				B9A72B7B16923E55407712C2 /* RepViTViewModel.swift in Sources */,
+				D84A234BF685B68DDB2CB67E /* RepViT_M1_1.mlmodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0DE52E938A19A9DE54B12862 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4PD7SNWFHM;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = RepViTClassifier;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		0ECD0F5B566312FBE3CAA68A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RepViT;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select an image to run RepViT classification on-device.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madhav.repvit.classifier;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		62D6B0CA72C033C46FA1D7A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RepViT;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select an image to run RepViT classification on-device.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madhav.repvit.classifier;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		63A3625B76BEE445AD7B7AC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4PD7SNWFHM;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = RepViTClassifier;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1BCF4937F15870801EBF558F /* Build configuration list for PBXProject "RepViTClassifier" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DE52E938A19A9DE54B12862 /* Debug */,
+				63A3625B76BEE445AD7B7AC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		48E2E365C320E9EBFB63A7FF /* Build configuration list for PBXNativeTarget "RepViTClassifier" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62D6B0CA72C033C46FA1D7A5 /* Debug */,
+				0ECD0F5B566312FBE3CAA68A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 056A48139E8FEE7F5FC59BE8 /* Project object */;
+}

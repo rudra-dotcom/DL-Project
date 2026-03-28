@@ -1,0 +1,50 @@
+# Root safeguards for importing Aaditya's work into this repo.
+# These rules are scoped so we ignore generated artifacts without hiding source code.
+
+# Nested repositories should not be committed into the parent repo.
+Aaditya's Contribution/**/.git/
+
+# Common local/editor/cache files.
+Aaditya's Contribution/**/__pycache__/
+Aaditya's Contribution/**/*.py[cod]
+Aaditya's Contribution/**/.vscode/
+Aaditya's Contribution/**/.DS_Store
+Aaditya's Contribution/**/Thumbs.db
+
+# Cifar_10 generated artifacts and local experiment outputs.
+Aaditya's Contribution/Cifar_10/checkpoints/
+Aaditya's Contribution/Cifar_10/data/
+Aaditya's Contribution/Cifar_10/logs/
+Aaditya's Contribution/Cifar_10/pretrain/
+Aaditya's Contribution/Cifar_10/trt/
+Aaditya's Contribution/Cifar_10/wandb/
+Aaditya's Contribution/Cifar_10/ignore/
+Aaditya's Contribution/Cifar_10/coreml/
+Aaditya's Contribution/Cifar_10/*.log
+Aaditya's Contribution/Cifar_10/*.pth
+Aaditya's Contribution/Cifar_10/*.pt
+Aaditya's Contribution/Cifar_10/*.bin
+Aaditya's Contribution/Cifar_10/*.gz
+Aaditya's Contribution/Cifar_10/*.tar.gz
+Aaditya's Contribution/Cifar_10/*.zip
+
+# Inference generated artifacts, model exports, and local Apple/Xcode state.
+Aaditya's Contribution/Inference/checkpoints/
+Aaditya's Contribution/Inference/logs/
+Aaditya's Contribution/Inference/outputs/
+Aaditya's Contribution/Inference/experiments/
+Aaditya's Contribution/Inference/pretrain/
+Aaditya's Contribution/Inference/trt/
+Aaditya's Contribution/Inference/wandb/
+Aaditya's Contribution/Inference/ignore/
+Aaditya's Contribution/Inference/*.pth
+Aaditya's Contribution/Inference/*.pt
+Aaditya's Contribution/Inference/*.onnx
+Aaditya's Contribution/Inference/*.zip
+Aaditya's Contribution/Inference/ios/RepViTClassifier/Resources/Models/
+Aaditya's Contribution/Inference/ios/RepViTClassifier/Resources/Data/
+Aaditya's Contribution/Inference/ios/RepViTClassifier/**/*.xcuserstate
+Aaditya's Contribution/Inference/ios/RepViTClassifier/**/*.xccheckout
+Aaditya's Contribution/Inference/ios/RepViTClassifier/**/*.moved-aside
+Aaditya's Contribution/Inference/ios/RepViTClassifier/**/xcuserdata/
+Aaditya's Contribution/Inference/ios/RepViTClassifier/**/DerivedData/
