@@ -16,11 +16,11 @@ All three contributions below address this root cause, each taking a different a
 
 ## Contributors
 
-| Contributor | Dataset | Model Variant | Best Top-1 |
-|-------------|---------|---------------|-----------|
-| Rudra | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE | 56.22% |
-| Vaibhav | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe | 74.71% |
-| Aaditya | CIFAR-10 | RepViT-M1.1 (stride-1 stem + selective SE) | 91.02 |
+| Contributor | Dataset   | Model Variant                              | Best Top-1 |
+| ----------- | --------- | ------------------------------------------ | ---------- |
+| Rudra       | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE       | 56.22%     |
+| Vaibhav     | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe        | 74.71%     |
+| Aaditya     | CIFAR-10  | RepViT-M1.1 (stride-1 stem + selective SE) | 91.02      |
 
 ---
 
@@ -46,29 +46,31 @@ RepViT-M0.9 achieves only **43.07% Top-1** on CIFAR-100 out of the box — barel
 Two new model variants were introduced:
 
 **`repvit_m0_9_lr`** — Low-Resolution aware macro design
+
 - Stem stride changed from `(2, 2)` → `(1, 2)`, preserving the initial 32×32 feature map
 - Last downsampling step removed so spatial information is retained longer through the network
 
 **`repvit_m0_9_lr_rase`** — Low-Resolution + Resolution-Aware SE schedule
+
 - Keeps all `repvit_m0_9_lr` changes above
 - Adds a resolution-aware SE placement strategy: earlier high-resolution stages receive more SE attention, later low-resolution stages receive less
 
 ### Architecture Changes
 
-| Change | Original | Rudra's Variant | Effect |
-|--------|----------|-----------------|--------|
-| Stem stride | (2, 2) | (1, 2) | **Accuracy** — preserves spatial info at 32×32 |
-| Final downsampling | Present | Removed | **Accuracy** — retains spatial detail through later stages |
-| SE schedule | Uniform | Resolution-aware (more in early, less in late stages) | **Accuracy** + **Efficiency** |
+| Change             | Original | Rudra's Variant                                       | Effect                                                     |
+| ------------------ | -------- | ----------------------------------------------------- | ---------------------------------------------------------- |
+| Stem stride        | (2, 2)   | (1, 2)                                                | **Accuracy** — preserves spatial info at 32×32             |
+| Final downsampling | Present  | Removed                                               | **Accuracy** — retains spatial detail through later stages |
+| SE schedule        | Uniform  | Resolution-aware (more in early, less in late stages) | **Accuracy** + **Efficiency**                              |
 
 ### Results
 
-| Model | Best Top-1 (%) | Params (M) | Mean Latency (ms) | Throughput (img/s) |
-|-------|---------------|------------|-------------------|--------------------|
-| MobileNetV3-Large-100 | 29.55 | 4.330 | 4.814 | 50,704 |
-| RepViT-M0.9 (baseline) | 43.07 | 4.757 | 5.385 | 42,667 |
-| RepViT-M0.9-LR | 53.99 | 4.758 | 5.497 | 37,648 |
-| RepViT-M0.9-LR-RASE | **56.22** | 4.618 | 5.302 | 37,509 |
+| Model                  | Best Top-1 (%) | Params (M) | Mean Latency (ms) | Throughput (img/s) |
+| ---------------------- | -------------- | ---------- | ----------------- | ------------------ |
+| MobileNetV3-Large-100  | 29.55          | 4.330      | 4.814             | 50,704             |
+| RepViT-M0.9 (baseline) | 43.07          | 4.757      | 5.385             | 42,667             |
+| RepViT-M0.9-LR         | 53.99          | 4.758      | 5.497             | 37,648             |
+| RepViT-M0.9-LR-RASE    | **56.22**      | 4.618      | 5.302             | 37,509             |
 
 > `repvit_m0_9_lr_rase` is the best model and uses **138,600 fewer parameters** than baseline RepViT-M0.9 while outperforming it by +13.15 points.
 
@@ -125,16 +127,16 @@ python scripts/plot_results.py \
 
 **Training recipe used in reported runs:**
 
-| Setting | Value |
-|---------|-------|
-| Epochs | 200 |
-| Batch size | 128 |
-| Optimizer | AdamW |
-| LR | 0.00025 |
-| Warmup | 5 epochs |
-| Scheduler | Cosine |
+| Setting      | Value                                                                                        |
+| ------------ | -------------------------------------------------------------------------------------------- |
+| Epochs       | 200                                                                                          |
+| Batch size   | 128                                                                                          |
+| Optimizer    | AdamW                                                                                        |
+| LR           | 0.00025                                                                                      |
+| Warmup       | 5 epochs                                                                                     |
+| Scheduler    | Cosine                                                                                       |
 | Augmentation | RandAugment `rand-m9-mstd0.5-inc1`, MixUp 0.8, CutMix 1.0, Random Erasing 0.25, Repeated Aug |
-| Distillation | Disabled |
+| Distillation | Disabled                                                                                     |
 
 ---
 
@@ -152,50 +154,50 @@ A two-pronged approach — architectural changes to the attention mechanism and 
 
 ### Architecture Changes
 
-| Change | Original | This Variant | Effect |
-|--------|----------|--------------|--------|
-| Stem Conv 1 stride | stride=2 | **stride=1** (preserves 32×32) | **Accuracy** — retains spatial info for small CIFAR images |
-| Stem Conv 2 stride | stride=2 | stride=2 (unchanged) | — |
-| Attention type | SE (FC bottleneck C→C/4→C) | **ECA** (1D conv, no reduction) | **Accuracy** + **Efficiency** — better recalibration, fewer params, lower latency |
-| Stage 1 (2 blocks) | Uniform SE | **All blocks** have ECA | **Accuracy** — early layers have most feature diversity, benefit most from recalibration |
-| Stage 2 (4 blocks) | Uniform SE | **Alternate blocks** (idx 0, 2) | **Accuracy** + **Efficiency** — good coverage at half the attention cost |
-| Stage 3 (12 blocks) | Uniform SE | **Every 4th block** (idx 0, 4, 8) | **Efficiency** — deep layers need less recalibration |
-| Stage 4 (2 blocks) | Some SE | **No attention** | **Efficiency** — final stage has sufficient power; removing attention saves latency |
-| Auxiliary head | None | **Superclass head** (20 classes, train-time only) | **Accuracy** — regularizes backbone via CIFAR-100's class hierarchy; zero inference cost |
+| Change              | Original                   | This Variant                                      | Effect                                                                                   |
+| ------------------- | -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Stem Conv 1 stride  | stride=2                   | **stride=1** (preserves 32×32)                    | **Accuracy** — retains spatial info for small CIFAR images                               |
+| Stem Conv 2 stride  | stride=2                   | stride=2 (unchanged)                              | —                                                                                        |
+| Attention type      | SE (FC bottleneck C→C/4→C) | **ECA** (1D conv, no reduction)                   | **Accuracy** + **Efficiency** — better recalibration, fewer params, lower latency        |
+| Stage 1 (2 blocks)  | Uniform SE                 | **All blocks** have ECA                           | **Accuracy** — early layers have most feature diversity, benefit most from recalibration |
+| Stage 2 (4 blocks)  | Uniform SE                 | **Alternate blocks** (idx 0, 2)                   | **Accuracy** + **Efficiency** — good coverage at half the attention cost                 |
+| Stage 3 (12 blocks) | Uniform SE                 | **Every 4th block** (idx 0, 4, 8)                 | **Efficiency** — deep layers need less recalibration                                     |
+| Stage 4 (2 blocks)  | Some SE                    | **No attention**                                  | **Efficiency** — final stage has sufficient power; removing attention saves latency      |
+| Auxiliary head      | None                       | **Superclass head** (20 classes, train-time only) | **Accuracy** — regularizes backbone via CIFAR-100's class hierarchy; zero inference cost |
 
 **Channel config:** `[48, 96, 192, 384]` &nbsp;|&nbsp; **Block depths:** `[2, 4, 12, 2]`
 
 ### Training Recipe Changes
 
-| Change | Original | This Variant | Effect |
-|--------|----------|--------------|--------|
-| Augmentation | Basic flip + crop | **RandAugment** (2 ops, magnitude 9) | **Accuracy** — stronger regularization |
-| MixUp | Not used | **MixUp** alpha=0.8 | **Accuracy** — effective on 100 fine-grained classes |
-| CutMix | Not used | **CutMix** alpha=1.0 | **Accuracy** — forces learning from partial regions |
-| Mix strategy | — | Random MixUp or CutMix per batch (50% prob) | **Accuracy** — diverse augmentation without overuse |
-| Label smoothing | 0.1 | 0.1 (unchanged) | — |
-| LR schedule | Cosine | **Cosine + linear warmup** (10 epochs) | **Accuracy** — prevents early instability |
-| Optimizer | AdamW | AdamW (unchanged) | — |
-| Gradient clipping | Not used | **Clip norm 5.0** | **Accuracy** — stabilizes training with noisy mixed-aug gradients |
-| Auxiliary loss | Not used | **Superclass CE loss**, weight=0.3 | **Accuracy** — structured regularization via class hierarchy |
-| Epochs | 300 | 200 |  **Accuracy tradeoff** — fewer epochs; 300 would likely improve further |
+| Change            | Original          | This Variant                                | Effect                                                                 |
+| ----------------- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------- |
+| Augmentation      | Basic flip + crop | **RandAugment** (2 ops, magnitude 9)        | **Accuracy** — stronger regularization                                 |
+| MixUp             | Not used          | **MixUp** alpha=0.8                         | **Accuracy** — effective on 100 fine-grained classes                   |
+| CutMix            | Not used          | **CutMix** alpha=1.0                        | **Accuracy** — forces learning from partial regions                    |
+| Mix strategy      | —                 | Random MixUp or CutMix per batch (50% prob) | **Accuracy** — diverse augmentation without overuse                    |
+| Label smoothing   | 0.1               | 0.1 (unchanged)                             | —                                                                      |
+| LR schedule       | Cosine            | **Cosine + linear warmup** (10 epochs)      | **Accuracy** — prevents early instability                              |
+| Optimizer         | AdamW             | AdamW (unchanged)                           | —                                                                      |
+| Gradient clipping | Not used          | **Clip norm 5.0**                           | **Accuracy** — stabilizes training with noisy mixed-aug gradients      |
+| Auxiliary loss    | Not used          | **Superclass CE loss**, weight=0.3          | **Accuracy** — structured regularization via class hierarchy           |
+| Epochs            | 300               | 200                                         | **Accuracy tradeoff** — fewer epochs; 300 would likely improve further |
 
 > All training recipe changes are purely training-time — **zero impact on inference latency**.
 
 ### Results
 
-| Metric | Value |
-|--------|-------|
-| Best Val Acc@1 | **74.71%** |
-| Best Val Acc@5 | **92.18%** |
-| Avg Inference Latency | ~3.7 ms |
-| Model Parameters | ~5.1 M |
+| Metric                | Value      |
+| --------------------- | ---------- |
+| Best Val Acc@1        | **74.71%** |
+| Best Val Acc@5        | **92.18%** |
+| Avg Inference Latency | ~3.7 ms    |
+| Model Parameters      | ~5.1 M     |
 
 ### Code Structure
 
 ```
 Vaibhav's contribution/
-├── repvit_cifar100.py     # Single-file training script (model + training loop)
+├── repvit_variant.py     # Single-file training script (model + training loop)
 ├── requirements.txt
 └── README.md
 
@@ -211,6 +213,7 @@ Vaibhav's contribution/
     ├── val_acc1_vs_acc5.png
     ├── latency.png
     ├── lr_schedule.png
+Repository only consists of the best model file and last epoch file.
 ```
 
 ### Setup & Running
@@ -219,12 +222,13 @@ Vaibhav's contribution/
 pip install -r requirements.txt
 
 # Train (downloads CIFAR-100 automatically)
-python repvit_cifar100.py
+python repvit_variant.py
 
 
 
 # Resume from checkpoint
 ```
+
 ```python
 checkpoint = torch.load("checkpoints/best.pth")
 model.load_state_dict(checkpoint["model"])
@@ -269,11 +273,11 @@ The same spatial collapse issue from the original stem design, now studied on CI
 
 ### Architecture Changes
 
-| Change | Original | Aaditya's Variant | Effect |
-|--------|----------|-------------------|--------|
-| `patch_embed` stride | stride=2 | **stride=1** | ✅ **Accuracy** — prevents spatial collapse on 32×32 |
-| Stage 1 & 2 SE | Uniform | **Alternating** SE blocks | ✅ **Accuracy** + ✅ **Efficiency** |
-| Stage 3 & 4 SE | Present | **Removed entirely** | ✅ **Efficiency** — no accuracy cost at CIFAR scale |
+| Change               | Original | Aaditya's Variant         | Effect                                            |
+| -------------------- | -------- | ------------------------- | ------------------------------------------------- |
+| `patch_embed` stride | stride=2 | **stride=1**              | **Accuracy** — prevents spatial collapse on 32×32 |
+| Stage 1 & 2 SE       | Uniform  | **Alternating** SE blocks | **Accuracy** + **Efficiency**                     |
+| Stage 3 & 4 SE       | Present  | **Removed entirely**      | **Efficiency** — no accuracy cost at CIFAR scale  |
 
 ### Code Structure
 
