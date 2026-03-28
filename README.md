@@ -1,5 +1,16 @@
 # RepViT on Low-Resolution Datasets: A CIFAR Study
+---
 
+## Table of Contents
+
+- [What is RepViT?](#what-is-repvit)
+- [The Flaw: Spatial Resolution Sensitivity](#the-flaw-spatial-resolution-sensitivity)
+- [Rudra's Contribution](#1-rudras-contribution)
+- [Vaibhav's Contribution](#2-vaibhavs-contribution)
+- [Aaditya's Contribution](#3-aadityaas-contribution)
+- [Latency Note](#latency-note)
+
+---
 ## What is RepViT?
 
 RepViT, introduced in the CVPR 2024 paper [*RepViT: Revisiting Mobile CNN From ViT Perspective*](https://arxiv.org/abs/2307.09283), is a family of lightweight **pure CNN** models designed for **mobile and edge devices**. The key idea is to revisit compact CNN design through the lens of efficient Vision Transformers, borrowing the mobile-friendly structural choices that made lightweight ViTs fast and accurate while keeping a convolutional backbone.
@@ -30,18 +41,7 @@ All three contributions below address this root cause, each taking a different a
 | Aaditya | CIFAR-10 + inference tooling | RepViT-M1.1 (stride-1 stem + selective SE) + deployment/export pipeline | 91.02% |
 
 
----
 
-## Table of Contents
-
-- [What is RepViT?](#what-is-repvit)
-- [The Flaw: Spatial Resolution Sensitivity](#the-flaw-spatial-resolution-sensitivity)
-- [Rudra's Contribution](#1-rudras-contribution)
-- [Vaibhav's Contribution](#2-vaibhavs-contribution)
-- [Aaditya's Contribution](#3-aadityaas-contribution)
-- [Latency Note](#latency-note)
-
----
 
 ## 1. Rudra's Contribution
 
