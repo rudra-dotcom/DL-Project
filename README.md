@@ -57,9 +57,9 @@ Two new model variants were introduced:
 
 | Change | Original | Rudra's Variant | Effect |
 |--------|----------|-----------------|--------|
-| Stem stride | (2, 2) | (1, 2) | ✅ **Accuracy** — preserves spatial info at 32×32 |
-| Final downsampling | Present | Removed | ✅ **Accuracy** — retains spatial detail through later stages |
-| SE schedule | Uniform | Resolution-aware (more in early, less in late stages) | ✅ **Accuracy** + ✅ **Efficiency** |
+| Stem stride | (2, 2) | (1, 2) | **Accuracy** — preserves spatial info at 32×32 |
+| Final downsampling | Present | Removed | **Accuracy** — retains spatial detail through later stages |
+| SE schedule | Uniform | Resolution-aware (more in early, less in late stages) | **Accuracy** + **Efficiency** |
 
 ### Results
 
@@ -154,14 +154,14 @@ A two-pronged approach — architectural changes to the attention mechanism and 
 
 | Change | Original | This Variant | Effect |
 |--------|----------|--------------|--------|
-| Stem Conv 1 stride | stride=2 | **stride=1** (preserves 32×32) | ✅ **Accuracy** — retains spatial info for small CIFAR images |
+| Stem Conv 1 stride | stride=2 | **stride=1** (preserves 32×32) | **Accuracy** — retains spatial info for small CIFAR images |
 | Stem Conv 2 stride | stride=2 | stride=2 (unchanged) | — |
-| Attention type | SE (FC bottleneck C→C/4→C) | **ECA** (1D conv, no reduction) | ✅ **Accuracy** + ✅ **Efficiency** — better recalibration, fewer params, lower latency |
-| Stage 1 (2 blocks) | Uniform SE | **All blocks** have ECA | ✅ **Accuracy** — early layers have most feature diversity, benefit most from recalibration |
-| Stage 2 (4 blocks) | Uniform SE | **Alternate blocks** (idx 0, 2) | ✅ **Accuracy** + ✅ **Efficiency** — good coverage at half the attention cost |
-| Stage 3 (12 blocks) | Uniform SE | **Every 4th block** (idx 0, 4, 8) | ✅ **Efficiency** — deep layers need less recalibration |
-| Stage 4 (2 blocks) | Some SE | **No attention** | ✅ **Efficiency** — final stage has sufficient power; removing attention saves latency |
-| Auxiliary head | None | **Superclass head** (20 classes, train-time only) | ✅ **Accuracy** — regularizes backbone via CIFAR-100's class hierarchy; zero inference cost |
+| Attention type | SE (FC bottleneck C→C/4→C) | **ECA** (1D conv, no reduction) | **Accuracy** + **Efficiency** — better recalibration, fewer params, lower latency |
+| Stage 1 (2 blocks) | Uniform SE | **All blocks** have ECA | **Accuracy** — early layers have most feature diversity, benefit most from recalibration |
+| Stage 2 (4 blocks) | Uniform SE | **Alternate blocks** (idx 0, 2) | **Accuracy** + **Efficiency** — good coverage at half the attention cost |
+| Stage 3 (12 blocks) | Uniform SE | **Every 4th block** (idx 0, 4, 8) | **Efficiency** — deep layers need less recalibration |
+| Stage 4 (2 blocks) | Some SE | **No attention** | **Efficiency** — final stage has sufficient power; removing attention saves latency |
+| Auxiliary head | None | **Superclass head** (20 classes, train-time only) | **Accuracy** — regularizes backbone via CIFAR-100's class hierarchy; zero inference cost |
 
 **Channel config:** `[48, 96, 192, 384]` &nbsp;|&nbsp; **Block depths:** `[2, 4, 12, 2]`
 
@@ -169,16 +169,16 @@ A two-pronged approach — architectural changes to the attention mechanism and 
 
 | Change | Original | This Variant | Effect |
 |--------|----------|--------------|--------|
-| Augmentation | Basic flip + crop | **RandAugment** (2 ops, magnitude 9) | ✅ **Accuracy** — stronger regularization |
-| MixUp | Not used | **MixUp** alpha=0.8 | ✅ **Accuracy** — effective on 100 fine-grained classes |
-| CutMix | Not used | **CutMix** alpha=1.0 | ✅ **Accuracy** — forces learning from partial regions |
-| Mix strategy | — | Random MixUp or CutMix per batch (50% prob) | ✅ **Accuracy** — diverse augmentation without overuse |
+| Augmentation | Basic flip + crop | **RandAugment** (2 ops, magnitude 9) | **Accuracy** — stronger regularization |
+| MixUp | Not used | **MixUp** alpha=0.8 | **Accuracy** — effective on 100 fine-grained classes |
+| CutMix | Not used | **CutMix** alpha=1.0 | **Accuracy** — forces learning from partial regions |
+| Mix strategy | — | Random MixUp or CutMix per batch (50% prob) | **Accuracy** — diverse augmentation without overuse |
 | Label smoothing | 0.1 | 0.1 (unchanged) | — |
-| LR schedule | Cosine | **Cosine + linear warmup** (10 epochs) | ✅ **Accuracy** — prevents early instability |
+| LR schedule | Cosine | **Cosine + linear warmup** (10 epochs) | **Accuracy** — prevents early instability |
 | Optimizer | AdamW | AdamW (unchanged) | — |
-| Gradient clipping | Not used | **Clip norm 5.0** | ✅ **Accuracy** — stabilizes training with noisy mixed-aug gradients |
-| Auxiliary loss | Not used | **Superclass CE loss**, weight=0.3 | ✅ **Accuracy** — structured regularization via class hierarchy |
-| Epochs | 300 | 200 | ⚠️ **Accuracy tradeoff** — fewer epochs; 300 would likely improve further |
+| Gradient clipping | Not used | **Clip norm 5.0** | **Accuracy** — stabilizes training with noisy mixed-aug gradients |
+| Auxiliary loss | Not used | **Superclass CE loss**, weight=0.3 | **Accuracy** — structured regularization via class hierarchy |
+| Epochs | 300 | 200 |  **Accuracy tradeoff** — fewer epochs; 300 would likely improve further |
 
 > All training recipe changes are purely training-time — **zero impact on inference latency**.
 
@@ -196,7 +196,6 @@ A two-pronged approach — architectural changes to the attention mechanism and 
 ```
 Vaibhav's contribution/
 ├── repvit_cifar100.py     # Single-file training script (model + training loop)
-├── plot_training.py       # Generates 7 diagnostic plots from training_log.csv
 ├── requirements.txt
 └── README.md
 
@@ -209,13 +208,9 @@ Vaibhav's contribution/
 │   └── ckpt_epoch200.pth
 ├── training_log.csv
 └── plots/
-    ├── 1_train_val_loss.png
-    ├── 2_train_val_acc1.png
-    ├── 3_val_acc1_vs_acc5.png
-    ├── 4_overfitting_monitor.png
-    ├── 5_latency.png
-    ├── 6_lr_schedule.png
-    └── 7_val_acc_delta.png
+    ├── val_acc1_vs_acc5.png
+    ├── latency.png
+    ├── lr_schedule.png
 ```
 
 ### Setup & Running
@@ -226,9 +221,7 @@ pip install -r requirements.txt
 # Train (downloads CIFAR-100 automatically)
 python repvit_cifar100.py
 
-# Generate plots
-python plot_training.py
-python plot_training.py --log path/to/training_log.csv --out my_plots/
+
 
 # Resume from checkpoint
 ```
