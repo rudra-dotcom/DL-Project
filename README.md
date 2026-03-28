@@ -16,19 +16,13 @@ All three contributions below address this root cause, each taking a different a
 
 ## Contributors
 
-<<<<<<< HEAD
+
 | Contributor | Dataset | Model Variant | Best Top-1 |
 |-------------|---------|---------------|-----------|
 | Rudra | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE | 56.22% |
 | Vaibhav | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe | 74.71% |
 | Aaditya | CIFAR-10 + inference tooling | RepViT-M1.1 (stride-1 stem + selective SE) + deployment/export pipeline | 91.02% |
-=======
-| Contributor | Dataset   | Model Variant                              | Best Top-1 |
-| ----------- | --------- | ------------------------------------------ | ---------- |
-| Rudra       | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE       | 56.22%     |
-| Vaibhav     | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe        | 74.71%     |
-| Aaditya     | CIFAR-10  | RepViT-M1.1 (stride-1 stem + selective SE) | 91.02      |
->>>>>>> 651502ac4cf83ab3b61858550df40aa0136b1d5b
+
 
 ---
 
