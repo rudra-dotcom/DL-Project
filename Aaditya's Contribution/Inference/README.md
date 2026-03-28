@@ -1,77 +1,159 @@
-# [RepViT-SAM: Towards Real-Time Segmenting Anything](https://arxiv.org/abs/2312.05760)
+# RepViT — ImageNet Training & Mobile Inference Pipeline
 
-# [RepViT: Revisiting  Mobile CNN From ViT Perspective](https://arxiv.org/abs/2307.09283)
+This folder contains an end-to-end pipeline for training, evaluating, and deploying **RepViT** models. It covers:
 
+- Full **ImageNet-1K training** with advanced augmentations, distillation, and EMA
+- **GPU throughput benchmarking**
+- **Core ML export** for on-device iOS inference
+- A native **iOS application** (`RepViTClassifier`) for mobile inference on iPhone
 
-Official PyTorch implementation of **RepViT-SAM** and **RepViT**. CVPR 2024.
+The implementation is based on the official [RepViT](https://arxiv.org/abs/2307.09283) and [RepViT-SAM](https://arxiv.org/abs/2312.05760) papers (CVPR 2024).
 
-<p align="center">
-  <img src="sam/figures/comparison.png" width=80%> <br>
-  Models are deployed on iPhone 12 with Core ML Tools to get latency.
-</p>
+---
 
-<p align="center">
-  <img src="figures/latency.png" width=70%> <br>
-  Models are trained on ImageNet-1K and deployed on iPhone 12 with Core ML Tools to get latency.
-</p>
+## Repository Structure
 
-
-[RepViT-SAM: Towards Real-Time Segmenting Anything](https://arxiv.org/abs/2312.05760).\
-Ao Wang, Hui Chen, Zijia Lin, Jungong Han, and Guiguang Ding\
-[[`arXiv`](https://arxiv.org/abs/2312.05760)] [[`Project Page`](https://jameslahm.github.io/repvit-sam)]
-
-<details>
-  <summary>
-  <font size="+1">Abstract</font>
-  </summary>
-Segment Anything Model (SAM) has shown impressive zero-shot transfer performance for various computer vision tasks recently. However, its heavy computation costs remain daunting for practical applications. MobileSAM proposes to replace the heavyweight image encoder in SAM with TinyViT by employing distillation, which results in a significant reduction in computational requirements. However, its deployment on resource-constrained mobile devices still encounters challenges due to the substantial memory and computational overhead caused by self-attention mechanisms. Recently, RepViT achieves the state-of-the-art performance and latency trade-off on mobile devices by incorporating efficient architectural designs of ViTs into CNNs. Here, to achieve real-time segmenting anything on mobile devices, following, we replace the heavyweight image encoder in SAM with RepViT model, ending up with the RepViT-SAM model. Extensive experiments show that RepViT-SAM can enjoy significantly better zero-shot transfer capability than MobileSAM, along with nearly $10\times$ faster inference speed.
-</details>
-
-<br/>
-
-[RepViT: Revisiting  Mobile CNN From ViT Perspective](https://arxiv.org/abs/2307.09283).\
-Ao Wang, Hui Chen, Zijia Lin, Jungong Han, and Guiguang Ding\
-[[`arXiv`](https://arxiv.org/abs/2307.09283)]
-
-<details>
-  <summary>
-  <font size="+1">Abstract</font>
-  </summary>
-Recently, lightweight Vision Transformers (ViTs) demonstrate superior performance and lower latency compared with lightweight Convolutional Neural Networks (CNNs) on resource-constrained mobile devices. This improvement is usually attributed to the multi-head self-attention module, which enables the model to learn global representations. However, the architectural disparities between lightweight ViTs and lightweight CNNs have not been adequately examined. In this study, we revisit the efficient design of lightweight CNNs and emphasize their potential for mobile devices. We incrementally enhance the mobile-friendliness of a standard lightweight CNN, specifically MobileNetV3, by integrating the efficient architectural choices of lightweight ViTs. This ends up with a new family of pure lightweight CNNs, namely RepViT. Extensive experiments show that RepViT outperforms existing state-of-the-art lightweight ViTs and exhibits favorable latency in various vision tasks. On ImageNet, RepViT achieves over 80\% top-1 accuracy with 1ms latency on an iPhone 12, which is the first time for a lightweight model, to the best of our knowledge. Our largest model, RepViT-M2.3, obtains 83.7\% accuracy with only 2.3ms latency.
-</details>
-
-<br/>
-
-
-
-
-
-<br/>
-
-**UPDATES** 🔥
-- 2023/12/17: [Grounding-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything/tree/main) supports RepViT-SAM with [Grounded-RepViT-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything/tree/main/EfficientSAM#run-grounded-repvit-sam-demo). Thanks!
-- 2023/12/11: RepViT-SAM has been released. Please refer to [RepViT-SAM](./sam/README.md).
-- 2023/12/11: RepViT-M0.6 has been released, achieving 74.1% with ~0.6ms latency. Its checkpoint is [here](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m0_6_distill_300e.pth)
-- 2023/09/28: RepViT-M0.9/1.0/1.1/1.5/2.3 models have been released.
-- 2023/07/27: RepViT models have been integrated into timm. See https://github.com/huggingface/pytorch-image-models/pull/1876.
-
-<br/>
-
-## Classification on ImageNet-1K
-
-### Models
-
-| Model | Top-1 (300 / 450)| #params | MACs | Latency | Ckpt | Core ML | Log |
-|:---------------|:----:|:---:|:--:|:--:|:--:|:--:|:--:|
-| M0.9 |   78.7 / 79.1  |     5.1M    |   0.8G   |      0.9ms     |  [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m0_9_distill_300e.pth) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m0_9_distill_450e.pth)    |   [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m0_9_distiall_300e_224.mlmodel) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m0_9_distiall_450e_224.mlmodel)  | [300e](./logs/repvit_m0_9_distill_300e.txt) / [450e](./logs/repvit_m0_9_distill_450e.txt) |
-| M1.0 |   80.0 / 80.3   |     6.8M    |   1.1G   |      1.0ms     | [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_0_distill_300e.pth) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_0_distill_450e.pth)    |   [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_0_distiall_300e_224.mlmodel) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_0_distiall_450e_224.mlmodel)  | [300e](./logs/repvit_m1_0_distill_300e.txt) / [450e](./logs/repvit_m1_0_distill_450e.txt) |
-| M1.1 |   80.7 / 81.2   |     8.2M    |   1.3G   |      1.1ms     | [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_1_distill_300e.pth) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_1_distill_450e.pth)    |   [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_1_distiall_300e_224.mlmodel) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_1_distiall_450e_224.mlmodel)  | [300e](./logs/repvit_m1_1_distill_300e.txt) / [450e](./logs/repvit_m1_1_distill_450e.txt) |
-| M1.5 |   82.3 / 82.5   |     14.0M    |   2.3G   |      1.5ms     | [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_5_distill_300e.pth) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_5_distill_450e.pth)    |   [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_5_distiall_300e_224.mlmodel) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m1_5_distiall_450e_224.mlmodel)  | [300e](./logs/repvit_m1_5_distill_300e.txt) / [450e](./logs/repvit_m1_5_distill_450e.txt) |
-| M2.3 |   83.3 / 83.7   |     22.9M    |   4.5G   |      2.3ms     | [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m2_3_distill_300e.pth) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m2_3_distill_450e.pth)    |   [300e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m2_3_distiall_300e_224.mlmodel) / [450e](https://github.com/THU-MIG/RepViT/releases/download/v1.0/repvit_m2_3_distiall_450e_224.mlmodel)  | [300e](./logs/repvit_m2_3_distill_300e.txt) / [450e](./logs/repvit_m2_3_distill_450e.txt) |
-
-
-Tips: Convert a training-time RepViT into the inference-time structure
 ```
+Inference/
+├── main.py              # Main training & evaluation script (ImageNet)
+├── engine.py            # Per-epoch train/eval loop logic
+├── losses.py            # Distillation loss implementation
+├── utils.py             # Utilities: BN fusion, EMA, distributed helpers
+├── export_coreml.py     # Export trained model to Core ML (.mlmodel)
+├── speed_gpu.py         # GPU throughput benchmark (images/sec)
+├── eval.sh              # Shell script for quick evaluation
+├── requirements.txt     # Python dependencies
+├── model/
+│   ├── __init__.py
+│   └── repvit.py        # RepViT architecture definitions (all variants)
+├── data/
+│   ├── datasets.py      # ImageNet / CIFAR dataset builders
+│   ├── samplers.py      # Repeated Augmentation (RASampler) for training
+│   └── threeaugment.py  # Three-augment data augmentation strategy
+└── ios/
+    └── RepViTClassifier/ # Native Xcode iOS app for on-device inference
+```
+
+---
+
+## ImageNet Model Performance
+
+Models are trained on **ImageNet-1K** and deployed on **iPhone 12** with Core ML Tools to measure latency.
+
+| Model  | Top-1 (300e / 450e) | #Params | MACs  | Latency (iPhone 12) |
+|:-------|:-------------------:|:-------:|:-----:|:-------------------:|
+| M0.9   | 78.7% / 79.1%       | 5.1M    | 0.8G  | 0.9 ms              |
+| M1.0   | 80.0% / 80.3%       | 6.8M    | 1.1G  | 1.0 ms              |
+| M1.1   | 80.7% / 81.2%       | 8.2M    | 1.3G  | 1.1 ms              |
+| M1.5   | 82.3% / 82.5%       | 14.0M   | 2.3G  | 1.5 ms              |
+| M2.3   | 83.3% / 83.7%       | 22.9M   | 4.5G  | 2.3 ms              |
+
+> RepViT-M1.0 is the first lightweight model to exceed **80% Top-1 accuracy under 1ms** latency on an iPhone 12.
+
+---
+
+## Environment Setup
+
+### 1. Create a Virtual Environment
+
+```bash
+conda create -n repvit python=3.8
+conda activate repvit
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+**`requirements.txt` includes:**
+```
+torch
+torchvision
+timm==0.5.4
+fvcore
+```
+
+> **Note:** Install a PyTorch version compatible with your hardware. For CUDA 12.1:
+> ```bash
+> pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+> ```
+
+---
+
+## ImageNet Training
+
+### Data Preparation
+
+Download and extract ImageNet train and val images from [image-net.org](http://image-net.org/). The expected directory structure is:
+
+```
+/path/to/imagenet/
+├── train/
+└── val/
+```
+
+### Training
+
+To train **RepViT-M0.9** on an 8-GPU machine:
+
+```bash
+python -m torch.distributed.launch \
+    --nproc_per_node=8 \
+    --master_port 12346 \
+    --use_env main.py \
+    --model repvit_m0_9 \
+    --data-path ~/imagenet \
+    --dist-eval
+```
+
+Key training features in `main.py`:
+- **Optimizer**: AdamW with adaptive gradient clipping (AGC mode)
+- **LR Schedule**: Cosine decay with linear warmup
+- **Augmentations**: RandAugment, Mixup, CutMix, Random Erasing, ThreeAugment
+- **Regularization**: Label smoothing, weight decay
+- **EMA**: Exponential Moving Average of model weights
+- **Distillation**: Hard/soft distillation from a teacher model (e.g., `regnety_160`)
+- **Logging**: Integrated W&B (Weights & Biases) experiment tracking
+
+### Evaluation
+
+To evaluate RepViT-M1.1 with a pre-trained checkpoint:
+
+```bash
+python main.py \
+    --eval \
+    --model repvit_m1_1 \
+    --resume pretrain/repvit_m1_1_distill_300e.pth \
+    --data-path ~/imagenet
+```
+
+Or use the convenience shell script:
+
+```bash
+bash eval.sh
+```
+
+---
+
+## GPU Throughput Benchmarking
+
+To measure the GPU throughput (images/sec) of any RepViT variant:
+
+```bash
+python speed_gpu.py --model repvit_m0_9
+```
+
+Configurable arguments:
+- `--model`: Model name (e.g., `repvit_m0_9`, `repvit_m1_1`)
+- `--resolution`: Input resolution (default: `224`)
+- `--batch-size`: Batch size for benchmarking (default: `2048`)
+
+The script performs a warm-up phase (5 seconds) followed by a timed measurement (10 seconds) to report stable throughput.
+
+**Tip:** Before benchmarking or evaluation, fuse Conv-BN layers for faster inference-time speed:
+```python
 from timm.models import create_model
 import utils
 
@@ -79,85 +161,80 @@ model = create_model('repvit_m0_9')
 utils.replace_batchnorm(model)
 ```
 
-## Latency Measurement 
+---
 
-The latency reported in RepViT for iPhone 12 (iOS 16) uses the benchmark tool from [XCode 14](https://developer.apple.com/videos/play/wwdc2022/10027/).
-For example, here is a latency measurement of RepViT-M0.9:
+## Mobile Deployment — Core ML Export
 
-![](./figures/repvit_m0_9_latency.png)
+To export a trained RepViT model to Apple's Core ML format (`.mlmodel`) for on-device inference:
 
-Tips: export the model to Core ML model
-```
-python export_coreml.py --model repvit_m0_9 --ckpt pretrain/repvit_m0_9_distill_300e.pth
-```
-Tips: measure the throughput on GPU
-```
-python speed_gpu.py --model repvit_m0_9
+```bash
+python export_coreml.py \
+    --model repvit_m1_1 \
+    --ckpt pretrain/repvit_m1_1_distill_300e.pth \
+    --resolution 224
 ```
 
+The script:
+1. Loads the specified model and checkpoint
+2. Fuses BatchNorm layers (`replace_batchnorm`) for deployment efficiency
+3. Traces the model with TorchScript (`torch.jit.trace`)
+4. Converts to Core ML format using `coremltools`
+5. Saves the output as `coreml/<model_name>_<resolution>.mlmodel`
 
-## ImageNet  
+---
 
-### Prerequisites
-`conda` virtual environment is recommended. 
-```
-conda create -n repvit python=3.8
-pip install -r requirements.txt
-```
+## iOS Application — RepViTClassifier
 
-### Data preparation
+The `ios/RepViTClassifier/` directory contains a native **Swift/Xcode** iOS application that loads the exported `.mlmodel` file and runs **real-time image classification** on-device.
 
-Download and extract ImageNet train and val images from http://image-net.org/. The training and validation data are expected to be in the `train` folder and `val` folder respectively:
-```
-|-- /path/to/imagenet/
-    |-- train
-    |-- val
-```
-
-### Training
-To train RepViT-M0.9 on an 8-GPU machine:
+### App Structure
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 --master_port 12346 --use_env main.py --model repvit_m0_9 --data-path ~/imagenet --dist-eval
-```
-Tips: specify your data path and model name! 
-
-### Testing 
-For example, to test RepViT-M0.9:
-```
-python main.py --eval --model repvit_m0_9 --resume pretrain/repvit_m0_9_distill_300e.pth --data-path ~/imagenet
+ios/RepViTClassifier/
+├── RepViTClassifier.xcodeproj/   # Xcode project configuration
+├── Sources/                      # Swift source files (inference logic, UI)
+├── Resources/                    # App resources (labels, assets)
+├── Scripts/                      # Build helper scripts
+└── project.yml                   # XcodeGen project spec
 ```
 
-## Downstream Tasks
-[Object Detection and Instance Segmentation](detection/README.md)<br>
-[Semantic Segmentation](segmentation/README.md)
+### Running on iPhone
 
-## Acknowledgement
+1. Export the model to Core ML (see above) and place the `.mlmodel` in the `Resources/` folder.
+2. Open `RepViTClassifier.xcodeproj` in **Xcode 14+**.
+3. Select your target iPhone device and press **Run**.
+4. Latency measurements on **iPhone 12 (iOS 16)** are obtained via the XCode 14 benchmark tool.
 
-Classification (ImageNet) code base is partly built with [LeViT](https://github.com/facebookresearch/LeViT), [PoolFormer](https://github.com/sail-sg/poolformer) and [EfficientFormer](https://github.com/snap-research/EfficientFormer). 
+---
 
-The detection and segmentation pipeline is from [MMCV](https://github.com/open-mmlab/mmcv) ([MMDetection](https://github.com/open-mmlab/mmdetection) and [MMSegmentation](https://github.com/open-mmlab/mmsegmentation)). 
+## Acknowledgements
 
-Thanks for the great implementations! 
+This implementation builds on top of:
+- [LeViT](https://github.com/facebookresearch/LeViT)
+- [PoolFormer](https://github.com/sail-sg/poolformer)
+- [EfficientFormer](https://github.com/snap-research/EfficientFormer)
+
+The detection and segmentation pipelines leverage [MMCV](https://github.com/open-mmlab/mmcv), [MMDetection](https://github.com/open-mmlab/mmdetection), and [MMSegmentation](https://github.com/open-mmlab/mmsegmentation).
+
+---
 
 ## Citation
 
-If our code or models help your work, please cite our paper:
-```BibTeX
+```bibtex
 @inproceedings{wang2024repvit,
-  title={Repvit: Revisiting mobile cnn from vit perspective},
-  author={Wang, Ao and Chen, Hui and Lin, Zijia and Han, Jungong and Ding, Guiguang},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={15909--15920},
-  year={2024}
+  title     = {Repvit: Revisiting mobile cnn from vit perspective},
+  author    = {Wang, Ao and Chen, Hui and Lin, Zijia and Han, Jungong and Ding, Guiguang},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages     = {15909--15920},
+  year      = {2024}
 }
 
 @misc{wang2023repvitsam,
-      title={RepViT-SAM: Towards Real-Time Segmenting Anything}, 
-      author={Ao Wang and Hui Chen and Zijia Lin and Jungong Han and Guiguang Ding},
-      year={2023},
-      eprint={2312.05760},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+  title         = {RepViT-SAM: Towards Real-Time Segmenting Anything},
+  author        = {Ao Wang and Hui Chen and Zijia Lin and Jungong Han and Guiguang Ding},
+  year          = {2023},
+  eprint        = {2312.05760},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV}
 }
 ```

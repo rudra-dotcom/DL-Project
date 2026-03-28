@@ -20,7 +20,7 @@ All three contributions below address this root cause, each taking a different a
 |-------------|---------|---------------|-----------|
 | Rudra | CIFAR-100 | RepViT-M0.9-LR + RepViT-M0.9-LR-RASE | 56.22% |
 | Vaibhav | CIFAR-100 | RepViT-M0.9 + ECA + Training Recipe | 74.71% |
-| Aaditya | CIFAR-10 | RepViT-M1.1 (stride-1 stem + selective SE) | 91.02 |
+| Aaditya | CIFAR-10 + inference tooling | RepViT-M1.1 (stride-1 stem + selective SE) + deployment/export pipeline | 91.02% |
 
 ---
 
@@ -325,7 +325,56 @@ python test_cifar10_shapes.py
 
 Models trained: Baseline RepViT-M1.1, `repvit_cifar10`, MobileNetV3-Large — 100 epochs each with AdamW.
 
----
+### Results
+
+| Model | Best Test Acc (%) | Final Test Acc (%) | Latency (ms) | Throughput (img/s) | Params (M) |
+|-------|-------------------|--------------------|--------------|--------------------|------------|
+| MobileNetV3-Large | 75.77 | 75.77 | 2.98 | 10,755.7 | 4.21 |
+| RepViT-M1.1 (baseline) | 87.39 | 87.39 | 5.95 | 5,380.5 | 7.78 |
+| RepViT-CIFAR10 | **91.02** | 90.75 | 5.98 | 5,351.9 | 4.52 |
+
+> `repvit_cifar10` improves over the baseline RepViT-M1.1 by **+3.63 points** on CIFAR-10 while using **3.26M fewer parameters**.
+
+### Inference & Deployment Contribution
+
+Alongside the CIFAR-10 architecture study,I also contributed an inference-focused RepViT deployment workspace covering export, evaluation, and mobile integration. This extends the project from low-resolution model adaptation to practical inference-ready deployment.
+
+### Inference Work Highlights
+
+- **Inference-time conversion support:** utilities are included to convert training-time RepViT structure into its optimized inference-time form
+- **Core ML export pipeline:** `export_coreml.py` exports PyTorch RepViT checkpoints to Apple Core ML
+- **GPU speed benchmarking:** `speed_gpu.py` measures throughput and latency for deployment-side evaluation
+- **iOS app integration:** `ios/RepViTClassifier` provides a SwiftUI demo app with a bundled `.mlmodel` for on-device image classification
+
+### Inference Code Structure
+
+```text
+Aaditya's Contribution/
+└── Inference/
+    ├── model/                    # RepViT model definitions
+    ├── main.py                   # ImageNet training / evaluation entry point
+    ├── engine.py                 # Train/eval loops
+    ├── export_coreml.py          # Export RepViT checkpoints to Core ML
+    ├── speed_gpu.py              # GPU throughput / latency measurement
+    ├── utils.py                  # Inference-time model conversion helpers
+    ├── eval.sh                   # Evaluation helper script
+    ├── requirements.txt
+    └── ios/RepViTClassifier/     # SwiftUI iOS demo app with bundled model
+```
+
+### Inference Setup & Running
+
+```bash
+cd "Aaditya's Contribution/Inference"
+pip install -r requirements.txt
+
+# Export a trained checkpoint to Core ML
+python export_coreml.py --model repvit_m0_9 --ckpt pretrain/repvit_m0_9_distill_300e.pth
+
+# Measure GPU inference speed
+python speed_gpu.py --model repvit_m0_9
+```
+
 
 ## Latency Note
 
