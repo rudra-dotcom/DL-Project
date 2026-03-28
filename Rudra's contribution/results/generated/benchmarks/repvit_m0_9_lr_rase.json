@@ -1,0 +1,15 @@
+{
+  "model": "repvit_m0_9_lr_rase",
+  "checkpoint": "checkpoints/cifar100_suite/repvit_m0_9_lr_rase/2026_03_24_03_52_38/checkpoint_best.pth",
+  "device": "cuda",
+  "input_size": 32,
+  "num_classes": 100,
+  "params_m": 4.61846,
+  "flops_g": null,
+  "latency_batch_size": 1,
+  "latency_mean_ms": 5.301902525825426,
+  "latency_median_ms": 5.296999006532133,
+  "latency_p90_ms": 5.3589000017382205,
+  "throughput_batch_size": 256,
+  "throughput_images_per_s": 37509.08265526533
+}

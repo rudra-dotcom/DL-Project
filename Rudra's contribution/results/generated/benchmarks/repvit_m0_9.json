@@ -1,0 +1,15 @@
+{
+  "model": "repvit_m0_9",
+  "checkpoint": "checkpoints/cifar100_suite/repvit_m0_9/2026_03_23_20_50_02/checkpoint_best.pth",
+  "device": "cuda",
+  "input_size": 32,
+  "num_classes": 100,
+  "params_m": 4.75706,
+  "flops_g": null,
+  "latency_batch_size": 1,
+  "latency_mean_ms": 5.3848930949607166,
+  "latency_median_ms": 5.379890993935987,
+  "latency_p90_ms": 5.420351997599937,
+  "throughput_batch_size": 256,
+  "throughput_images_per_s": 42667.68955304521
+}

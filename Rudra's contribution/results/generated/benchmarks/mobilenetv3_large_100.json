@@ -1,0 +1,15 @@
+{
+  "model": "mobilenetv3_large_100",
+  "checkpoint": "checkpoints/cifar100_suite/mobilenetv3_large_100/2026_03_23_19_09_40/checkpoint_best.pth",
+  "device": "cuda",
+  "input_size": 32,
+  "num_classes": 100,
+  "params_m": 4.330132,
+  "flops_g": null,
+  "latency_batch_size": 1,
+  "latency_mean_ms": 4.8143633397558006,
+  "latency_median_ms": 4.810297992662527,
+  "latency_p90_ms": 4.842559006647207,
+  "throughput_batch_size": 256,
+  "throughput_images_per_s": 50704.86235464245
+}

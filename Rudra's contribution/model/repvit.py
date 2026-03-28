@@ -10,7 +10,7 @@ def _make_divisible(v, divisor, min_value=None):
     :param divisor:
     :param min_value:
     :return:
-    """
+    """ 
     if min_value is None:
         min_value = divisor
     new_v = max(min_value, int(v + divisor / 2) // divisor * divisor)
@@ -18,7 +18,7 @@ def _make_divisible(v, divisor, min_value=None):
     if new_v < 0.9 * v:
         new_v += divisor
     return new_v
-
+        
 from timm.models.layers import SqueezeExcite
 
 import torch
