@@ -1,4 +1,8 @@
 # RepViT on Low-Resolution Datasets: A CIFAR Study
+
+Video Demo: https://youtu.be/cYUfYO5xj_w
+Research Paper: https://arxiv.org/pdf/2307.09283
+
 ---
 
 ## Table of Contents
